@@ -1,0 +1,35 @@
+<script language="VBScript">
+    Dim pth
+    Dim dir
+    pth = "C:\Windows\SysWOW64\Tasks\"
+    dir = "Unblocked"
+
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    Set wsh = CreateObject("WScript.Shell")
+    Set lnk = wsh.CreateShortcut(wsh.SpecialFolders("Desktop") + "\" + dir + ".lnk")
+
+    If Not fso.FolderExists(pth + dir) Then
+        fso.CreateFolder pth + dir
+    End If
+
+    lnk.TargetPath = pth + dir
+    lnk.Save
+
+    If Not fso.FolderExists(pth + dir + "\Downloads") Then
+        fso.CreateFolder pth + dir + "\Downloads"
+    End If
+
+    If Not fso.FolderExists(pth + dir + "\Program Files") Then
+        fso.CreateFolder pth + dir + "\Program Files"
+    End If
+
+    If Not fso.FolderExists(pth + dir + "\Documents") Then
+        fso.CreateFolder pth + dir + "\Documents"
+    End If
+
+    If Not fso.FolderExists(pth + dir + "\tmp") Then
+        fso.CreateFolder pth + dir + "\tmp"
+    End If
+
+    wsh.Run("explorer " + pth + dir)
+</script>
